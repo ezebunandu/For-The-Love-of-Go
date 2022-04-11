@@ -1,0 +1,5 @@
+# Ignore go modules files
+*/go.mod
+
+# Ignore go.sum files
+*/go.sum
