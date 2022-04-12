@@ -14,17 +14,22 @@ type sqrtTestCase struct {
 	num, squareRoot float64
 }
 
-func TestAdd(t *testing.T) {
+func TestAddMany(t *testing.T) {
 	t.Parallel()
+	type testCase struct {
+		inputs   []float64
+		expected float64
+	}
 	testCases := []testCase{
-		{a: 2, b: 2, expected: 4},
-		{a: 2, b: -3, expected: -1},
-		{a: 5, b: 0, expected: 5},
+		{inputs: []float64{}, expected: 0},
+		{inputs: []float64{2}, expected: 2},
+		{inputs: []float64{1, 2}, expected: 3},
+		{inputs: []float64{1, 2, 3}, expected: 5},
 	}
 	for _, testcase := range testCases {
-		got := calculator.Add(testcase.a, testcase.b)
+		got := calculator.AddMany(testcase.inputs...)
 		if testcase.expected != got {
-			t.Errorf("Add(%f, %f): expected %f, got %f", testcase.a, testcase.b, testcase.expected, got)
+			t.Errorf("Add(%v): expected %f, got %f", testcase.inputs, testcase.expected, got)
 		}
 	}
 }
