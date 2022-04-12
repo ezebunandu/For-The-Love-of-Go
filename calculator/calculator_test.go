@@ -24,7 +24,7 @@ func TestAddMany(t *testing.T) {
 		{inputs: []float64{}, expected: 0},
 		{inputs: []float64{2}, expected: 2},
 		{inputs: []float64{1, 2}, expected: 3},
-		{inputs: []float64{1, 2, 3}, expected: 5},
+		{inputs: []float64{1, 2, 3}, expected: 6},
 	}
 	for _, testcase := range testCases {
 		got := calculator.AddMany(testcase.inputs...)
