@@ -10,8 +10,12 @@ import (
 
 // Add takes two numbers and returns the result of adding
 // them together.
-func Add(a, b float64) float64 {
-	return a + b
+func AddMany(inputs ...float64) float64 {
+	var sum float64 = 0
+	for _, input := range inputs {
+		sum += input
+	}
+	return sum
 }
 
 func Subtract(a, b float64) float64 {
