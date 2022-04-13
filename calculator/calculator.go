@@ -41,11 +41,18 @@ func MultiplyMany(inputs ...float64) float64 {
 	return multiple
 }
 
-func Divide(a, b float64) (result float64, err error) {
-	if b == 0 {
-		return 0, errors.New("Cannot divide by zero")
+func DivideMany(inputs ...float64) (float64, error) {
+	if len(inputs) == 0 {
+		return 0, nil
 	}
-	return a / b, nil
+	result := inputs[0]
+	for _, input := range inputs[1:] {
+		if input == 0 {
+			return 0, errors.New("cannot divide by 0")
+		}
+		result /= input
+	}
+	return result, nil
 }
 
 func Sqrt(num float64) (float64, error) {

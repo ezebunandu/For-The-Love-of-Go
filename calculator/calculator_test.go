@@ -67,31 +67,33 @@ func TestMultiplyMany(t *testing.T) {
 	}
 }
 
-func TestDivide(t *testing.T) {
+func TestDivideMany(t *testing.T) {
 	t.Parallel()
 	type testCase struct {
-		a, b, expected float64
+		inputs   []float64
+		expected float64
 	}
 	testCases := []testCase{
-		{a: 4, b: 2, expected: 2},
-		{a: 0, b: 5, expected: 0},
-		{a: 5, b: -1, expected: -5},
-		{a: -2, b: -1, expected: 2},
+		{inputs: []float64{}, expected: 0},
+		{inputs: []float64{2}, expected: 2},
+		{inputs: []float64{2, 2}, expected: 1},
+		{inputs: []float64{-1, -1}, expected: 1},
+		{inputs: []float64{100, 5, 2}, expected: 10},
 	}
 	for _, testcase := range testCases {
-		got, err := calculator.Divide(testcase.a, testcase.b)
+		got, err := calculator.DivideMany(testcase.inputs...)
 		if err != nil {
-			t.Fatalf("Divide(%f, %f): want no error for valid input, got %v", testcase.a, testcase.b, err)
+			t.Fatalf("Divide(%v): want no error for valid input, got %v", testcase.inputs, err)
 		}
 		if testcase.expected != got {
-			t.Errorf("Add(%f, %f): expected %f, got %f", testcase.a, testcase.b, testcase.expected, got)
+			t.Errorf("Add(%v): expected %f, got %f", testcase.inputs, testcase.expected, got)
 		}
 	}
 }
 
 func TestDivideInvalid(t *testing.T) {
 	t.Parallel()
-	_, err := calculator.Divide(1, 0)
+	_, err := calculator.DivideMany(1, 0)
 	if err == nil {
 		t.Error("Divide(1, 0): want error for invalid input, got nil")
 	}
