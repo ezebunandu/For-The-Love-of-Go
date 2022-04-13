@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	result := calculator.Add(2, 2)
+	result := calculator.AddMany(2, 2, 4)
 	fmt.Println(result)
 }
