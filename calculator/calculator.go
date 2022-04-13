@@ -18,12 +18,27 @@ func AddMany(inputs ...float64) float64 {
 	return sum
 }
 
-func Subtract(a, b float64) float64 {
-	return a - b
+func SubtractMany(inputs ...float64) float64 {
+	if len(inputs) == 0 {
+		return 0
+	}
+	result := inputs[0]
+	for _, input := range inputs[1:] {
+		result -= input
+	}
+	return result
+
 }
 
-func Multiply(a, b float64) float64 {
-	return a * b
+func MultiplyMany(inputs ...float64) float64 {
+	if len(inputs) == 0 {
+		return 0
+	}
+	var multiple float64 = 1
+	for _, input := range inputs {
+		multiple *= input
+	}
+	return multiple
 }
 
 func Divide(a, b float64) (result float64, err error) {

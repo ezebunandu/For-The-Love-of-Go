@@ -26,20 +26,22 @@ func TestAddMany(t *testing.T) {
 	}
 }
 
-func TestSubtract(t *testing.T) {
+func TestSubtractMany(t *testing.T) {
 	t.Parallel()
 	type testCase struct {
-		a, b, expected float64
+		inputs   []float64
+		expected float64
 	}
 	testCases := []testCase{
-		{a: 4, b: 2, expected: 2},
-		{a: 1, b: 1, expected: 0},
-		{a: 2, b: 4, expected: -2},
+		{inputs: []float64{}, expected: 0},
+		{inputs: []float64{2}, expected: 2},
+		{inputs: []float64{2, 2}, expected: 0},
+		{inputs: []float64{1, 2, 3}, expected: -4},
 	}
 	for _, testcase := range testCases {
-		got := calculator.Subtract(testcase.a, testcase.b)
+		got := calculator.SubtractMany(testcase.inputs...)
 		if testcase.expected != got {
-			t.Errorf("Subtract(%f, %f): expected %f, got %f", testcase.a, testcase.b, testcase.expected, got)
+			t.Errorf("Subtract(%v): expected %f, got %f", testcase.inputs, testcase.expected, got)
 		}
 	}
 }
