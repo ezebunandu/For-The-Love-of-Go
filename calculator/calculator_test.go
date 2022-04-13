@@ -6,14 +6,6 @@ import (
 	"testing"
 )
 
-type testCase struct {
-	a, b, expected float64
-}
-
-type sqrtTestCase struct {
-	num, squareRoot float64
-}
-
 func TestAddMany(t *testing.T) {
 	t.Parallel()
 	type testCase struct {
@@ -36,6 +28,9 @@ func TestAddMany(t *testing.T) {
 
 func TestSubtract(t *testing.T) {
 	t.Parallel()
+	type testCase struct {
+		a, b, expected float64
+	}
 	testCases := []testCase{
 		{a: 4, b: 2, expected: 2},
 		{a: 1, b: 1, expected: 0},
@@ -49,23 +44,32 @@ func TestSubtract(t *testing.T) {
 	}
 }
 
-func TestMultiply(t *testing.T) {
+func TestMultiplyMany(t *testing.T) {
 	t.Parallel()
+	type testCase struct {
+		inputs   []float64
+		expected float64
+	}
 	testCases := []testCase{
-		{a: 4, b: 2, expected: 8},
-		{a: 2, b: 0, expected: 0},
-		{a: 2, b: -1, expected: -2},
+		{inputs: []float64{}, expected: 0},
+		{inputs: []float64{2}, expected: 2},
+		{inputs: []float64{1, 2}, expected: 2},
+		{inputs: []float64{2, 3, 4}, expected: 24},
+		{inputs: []float64{-1, 2, -1}, expected: 2},
 	}
 	for _, testcase := range testCases {
-		got := calculator.Multiply(testcase.a, testcase.b)
+		got := calculator.MultiplyMany(testcase.inputs...)
 		if testcase.expected != got {
-			t.Errorf("Multiply(%f, %f): expected %f, got %f", testcase.a, testcase.b, testcase.expected, got)
+			t.Errorf("Multiply(%v): expected %f, got %f", testcase.inputs, testcase.expected, got)
 		}
 	}
 }
 
 func TestDivide(t *testing.T) {
 	t.Parallel()
+	type testCase struct {
+		a, b, expected float64
+	}
 	testCases := []testCase{
 		{a: 4, b: 2, expected: 2},
 		{a: 0, b: 5, expected: 0},
@@ -96,6 +100,9 @@ func closeEnough(a, b, tolerance float64) bool {
 }
 
 func TestSqrt(t *testing.T) {
+	type sqrtTestCase struct {
+		num, squareRoot float64
+	}
 	t.Parallel()
 	testCases := []sqrtTestCase{
 		{num: 4, squareRoot: 2},
