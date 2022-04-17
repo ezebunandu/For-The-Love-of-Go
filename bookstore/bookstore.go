@@ -20,8 +20,9 @@ func Buy(b Book) (Book, error) {
 	b.Copies--
 	return b, nil
 }
-func GetAllBooks(catalog []Book) []Book {
-	return catalog
+func GetAllBooks(catalog map[int]Book) map[int]Book {
+	c := catalog
+	return c
 }
 
 func GetBook(catalog map[int]Book, ID int) (Book, error) {
