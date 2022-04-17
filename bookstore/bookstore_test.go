@@ -49,11 +49,11 @@ func TestBuyErrorsIfNoCopiesLeft(t *testing.T) {
 
 func TestGetAllBooks(t *testing.T) {
 	t.Parallel()
-	catalog := map[int]bookstore.Book{
+	catalog := bookstore.Catalog{
 		1: {Title: "For the Love of Go"},
 		2: {Title: "The Power of Go: Tools"},
 	}
-	want := map[int]bookstore.Book{
+	want := bookstore.Catalog{
 		1: {Title: "For the Love of Go"},
 		2: {Title: "The Power of Go: Tools"},
 	}
@@ -65,7 +65,7 @@ func TestGetAllBooks(t *testing.T) {
 
 func TestGetBook(t *testing.T) {
 	t.Parallel()
-	catalog := map[int]bookstore.Book{
+	catalog := bookstore.Catalog{
 		1: {
 			ID:    1,
 			Title: "For the Love of Go",
@@ -91,7 +91,7 @@ func TestGetBook(t *testing.T) {
 
 func TestGetBookBadIDReturnsError(t *testing.T) {
 	t.Parallel()
-	catalog := map[int]bookstore.Book{}
+	catalog := bookstore.Catalog{}
 	_, err := bookstore.GetBook(catalog, 999)
 	if err == nil {
 		t.Fatal("want error for non-existent ID, got nil")

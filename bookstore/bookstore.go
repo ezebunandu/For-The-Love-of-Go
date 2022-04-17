@@ -13,6 +13,9 @@ type Book struct {
 	ID     int
 }
 
+// a catalog contains books mapped to their IDs
+type Catalog map[int]Book
+
 func Buy(b Book) (Book, error) {
 	if b.Copies == 0 {
 		return Book{}, errors.New("no copies left")
@@ -20,12 +23,12 @@ func Buy(b Book) (Book, error) {
 	b.Copies--
 	return b, nil
 }
-func GetAllBooks(catalog map[int]Book) map[int]Book {
+func GetAllBooks(catalog Catalog) Catalog {
 	c := catalog
 	return c
 }
 
-func GetBook(catalog map[int]Book, ID int) (Book, error) {
+func GetBook(catalog Catalog, ID int) (Book, error) {
 	book, ok := catalog[ID]
 	if !ok {
 		return Book{}, fmt.Errorf("ID %d doesn't exist", ID)
