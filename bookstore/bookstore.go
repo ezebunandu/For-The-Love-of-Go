@@ -7,10 +7,12 @@ import (
 
 // Represents a book in the bookstore
 type Book struct {
-	Title  string
-	Author string
-	Copies int
-	ID     int
+	Title           string
+	Author          string
+	Copies          int
+	ID              int
+	PriceCents      int
+	DiscountPercent int
 }
 
 // a catalog contains books mapped to their IDs
@@ -34,4 +36,9 @@ func GetBook(catalog Catalog, ID int) (Book, error) {
 		return Book{}, fmt.Errorf("ID %d doesn't exist", ID)
 	}
 	return book, nil
+}
+
+func (b Book) NetPriceCents() int {
+	saving := b.PriceCents * b.DiscountPercent / 100
+	return b.PriceCents - saving
 }
