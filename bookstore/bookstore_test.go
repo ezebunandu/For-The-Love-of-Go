@@ -57,7 +57,7 @@ func TestGetAllBooks(t *testing.T) {
 		1: {Title: "For the Love of Go"},
 		2: {Title: "The Power of Go: Tools"},
 	}
-	got := bookstore.GetAllBooks(catalog)
+	got := catalog.GetAllBooks()
 	if !cmp.Equal(want, got) {
 		t.Error(cmp.Diff(want, got))
 	}
@@ -80,7 +80,7 @@ func TestGetBook(t *testing.T) {
 		ID:    2,
 		Title: "The Power of Go: Tools",
 	}
-	got, err := bookstore.GetBook(catalog, 2)
+	got, err := catalog.GetBook(2)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -105,7 +105,7 @@ func TestNetPriceCents(t *testing.T) {
 func TestGetBookBadIDReturnsError(t *testing.T) {
 	t.Parallel()
 	catalog := bookstore.Catalog{}
-	_, err := bookstore.GetBook(catalog, 999)
+	_, err := catalog.GetBook(999)
 	if err == nil {
 		t.Fatal("want error for non-existent ID, got nil")
 	}

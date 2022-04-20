@@ -25,12 +25,12 @@ func Buy(b Book) (Book, error) {
 	b.Copies--
 	return b, nil
 }
-func GetAllBooks(catalog Catalog) Catalog {
+func (catalog Catalog) GetAllBooks() Catalog {
 	c := catalog
 	return c
 }
 
-func GetBook(catalog Catalog, ID int) (Book, error) {
+func (catalog Catalog) GetBook(ID int) (Book, error) {
 	book, ok := catalog[ID]
 	if !ok {
 		return Book{}, fmt.Errorf("ID %d doesn't exist", ID)
