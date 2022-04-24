@@ -13,6 +13,7 @@ type Book struct {
 	ID              int
 	PriceCents      int
 	DiscountPercent int
+	category        string
 }
 
 // a catalog contains books mapped to their IDs
@@ -49,4 +50,16 @@ func (book *Book) SetPriceCents(newPrice int) error {
 	}
 	book.PriceCents = newPrice
 	return nil
+}
+
+func (b *Book) SetCategory(category string) error {
+	if category != "Autobiography" {
+		return fmt.Errorf("unknown category %q", category)
+	}
+	b.category = category
+	return nil
+}
+
+func (b Book) Category() string {
+	return b.category
 }
