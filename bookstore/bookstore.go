@@ -43,3 +43,11 @@ func (c Catalog) GetBook(ID int) (Book, error) {
 func (b Book) NetPriceCents() int {
 	return b.PriceCents * (100 - b.DiscountPercent) / 100
 }
+
+func (b *Book) SetPriceCents(price int) error {
+	if price < 0 {
+		return errors.New("price cannot be negative")
+	}
+	b.PriceCents = price
+	return nil
+}
